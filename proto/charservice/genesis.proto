@@ -1,0 +1,14 @@
+syntax = "proto3";
+package charactertoken.ctok.charservice;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "charservice/character.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/charservice/types";
+
+// GenesisState defines the charservice module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated Character characterList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+    // this line is used by starport scaffolding # ibc/genesis/proto
+}

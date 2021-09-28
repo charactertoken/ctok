@@ -1,0 +1,14 @@
+syntax = "proto3";
+package charactertoken.ctok.typeservice;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "typeservice/ctype.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/typeservice/types";
+
+// GenesisState defines the typeservice module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated Ctype ctypeList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+    // this line is used by starport scaffolding # ibc/genesis/proto
+}

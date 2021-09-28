@@ -1,0 +1,19 @@
+syntax = "proto3";
+package charactertoken.ctok.charservice;
+
+option go_package = "github.com/charactertoken/ctok/x/charservice/types";
+
+import "gogoproto/gogo.proto";
+
+message Character {
+  bool tradeRestricted = 1;
+  int64 saleTime = 2;
+  string creator = 3;
+  string index = 4;
+  string name = 5;
+  string owner = 6;
+  string ctype = 7;
+  string cost = 8;
+  string license = 9;
+  bytes value = 10;
+}

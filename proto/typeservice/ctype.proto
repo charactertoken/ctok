@@ -1,0 +1,16 @@
+syntax = "proto3";
+package charactertoken.ctok.typeservice;
+
+option go_package = "github.com/charactertoken/ctok/x/typeservice/types";
+
+import "gogoproto/gogo.proto";
+
+message Ctype {
+  string creator = 1;
+  string index = 2;
+  string name = 3;
+  string language = 4;
+  bytes schemaFile = 5;
+  string messageName = 6;
+  string group = 7;
+}

@@ -1,0 +1,120 @@
+syntax = "proto3";
+package charactertoken.ctok.charservice;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "charservice/character.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/charservice/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // this line is used by starport scaffolding # 2
+
+  // Queries a list of getAllCharsByCreator items.
+  rpc GetAllCharsByCreator(QueryGetAllCharsByCreatorRequest) returns (QueryGetAllCharsByCreatorResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/getAllCharsByCreator";
+  }
+
+
+  // Queries a list of getCharByName items.
+  rpc GetCharByName(QueryGetCharByNameRequest) returns (QueryGetCharByNameResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/getCharByName";
+  }
+
+
+  // Queries a list of getAllCharsForSale items.
+  rpc GetAllCharsForSale(QueryGetAllCharsForSaleRequest) returns (QueryGetAllCharsForSaleResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/getAllCharsForSale";
+  }
+
+
+  // Queries a list of getAllCharsOfType items.
+  rpc GetAllCharsOfType(QueryGetAllCharsOfTypeRequest) returns (QueryGetAllCharsOfTypeResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/getAllCharsOfType";
+  }
+
+
+  // Queries a list of getAllCharsOfOwner items.
+  rpc GetAllCharsOfOwner(QueryGetAllCharsOfOwnerRequest) returns (QueryGetAllCharsOfOwnerResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/getAllCharsOfOwner";
+  }
+
+
+  // Queries a character by index.
+  rpc Character(QueryGetCharacterRequest) returns (QueryGetCharacterResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/character/{index}";
+  }
+
+  // Queries a list of character items.
+  rpc CharacterAll(QueryAllCharacterRequest) returns (QueryAllCharacterResponse) {
+    option (google.api.http).get = "/charactertoken/ctok/charservice/character";
+  }
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetAllCharsByCreatorRequest {
+  string creator = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllCharsByCreatorResponse {
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCharByNameRequest {
+  string name = 1;
+}
+
+message QueryGetCharByNameResponse {
+  Character Character = 1;
+}
+
+message QueryGetAllCharsForSaleRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryGetAllCharsForSaleResponse {
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAllCharsOfTypeRequest {
+  string ctype = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllCharsOfTypeResponse {
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAllCharsOfOwnerRequest {
+  string owner = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllCharsOfOwnerResponse {
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCharacterRequest {
+  string index = 1;
+}
+
+message QueryGetCharacterResponse {
+  Character Character = 1;
+}
+
+message QueryAllCharacterRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCharacterResponse {
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

@@ -1,0 +1,59 @@
+syntax = "proto3";
+package charactertoken.ctok.offerservice;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "offerservice/offer_contract.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/offerservice/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+
+	// Queries a list of getAllCharOffers items.
+	rpc GetAllCharOffers(QueryGetAllCharOffersRequest) returns (QueryGetAllCharOffersResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/offerservice/getAllCharOffers";
+	}
+
+
+	// Queries a offerContract by index.
+	rpc OfferContract(QueryGetOfferContractRequest) returns (QueryGetOfferContractResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/offerservice/offerContract/{index}";
+	}
+
+	// Queries a list of offerContract items.
+	rpc OfferContractAll(QueryAllOfferContractRequest) returns (QueryAllOfferContractResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/offerservice/offerContract";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetAllCharOffersRequest {
+  string charId = 1;
+cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllCharOffersResponse {
+  repeated OfferContract OfferContract = 1;
+cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetOfferContractRequest {
+	string index = 1;
+}
+
+message QueryGetOfferContractResponse {
+	OfferContract OfferContract = 1;
+}
+
+message QueryAllOfferContractRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOfferContractResponse {
+	repeated OfferContract OfferContract = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

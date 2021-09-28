@@ -1,0 +1,14 @@
+syntax = "proto3";
+package charactertoken.ctok.offerservice;
+
+// this line is used by starport scaffolding # genesis/proto/import
+import "offerservice/offer_contract.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/offerservice/types";
+
+// GenesisState defines the offerservice module's genesis state.
+message GenesisState {
+    // this line is used by starport scaffolding # genesis/proto/state
+		repeated OfferContract offerContractList = 1; // this line is used by starport scaffolding # genesis/proto/stateField
+    // this line is used by starport scaffolding # ibc/genesis/proto
+}

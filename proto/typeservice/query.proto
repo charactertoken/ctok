@@ -1,0 +1,75 @@
+syntax = "proto3";
+package charactertoken.ctok.typeservice;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "typeservice/ctype.proto";
+
+option go_package = "github.com/charactertoken/ctok/x/typeservice/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+
+	// Queries a list of getAllTypesByName items.
+	rpc GetAllTypesByName(QueryGetAllTypesByNameRequest) returns (QueryGetAllTypesByNameResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/typeservice/getAllTypesByName";
+	}
+
+
+	// Queries a list of getAllTypesByGroup items.
+	rpc GetAllTypesByGroup(QueryGetAllTypesByGroupRequest) returns (QueryGetAllTypesByGroupResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/typeservice/getAllTypesByGroup";
+	}
+
+
+	// Queries a ctype by index.
+	rpc Ctype(QueryGetCtypeRequest) returns (QueryGetCtypeResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/typeservice/ctype/{index}";
+	}
+
+	// Queries a list of ctype items.
+	rpc CtypeAll(QueryAllCtypeRequest) returns (QueryAllCtypeResponse) {
+		option (google.api.http).get = "/charactertoken/ctok/typeservice/ctype";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetAllTypesByNameRequest {
+	string name = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllTypesByNameResponse {
+	repeated Ctype ctype = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAllTypesByGroupRequest {
+	string group = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryGetAllTypesByGroupResponse {
+	repeated Ctype ctype = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCtypeRequest {
+	string index = 1;
+}
+
+message QueryGetCtypeResponse {
+	Ctype Ctype = 1;
+}
+
+message QueryAllCtypeRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCtypeResponse {
+	repeated Ctype Ctype = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

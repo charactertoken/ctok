@@ -1,0 +1,31 @@
+accounts:
+  - name: alice
+    coins: ["200000000ctok", "200000000sct"]
+  - name: bob
+    coins: ["100000000ctok", "100000000sct"]
+validator:
+  name: alice
+  staked: "100000000sct"
+genesis:
+  app_state:
+    staking:
+      params:
+        bond_denom: "sct"
+    crisis:
+      constant_fee:
+        denom: "sct"
+    gov:
+      deposit_params:
+        min_deposit:
+          denom: "sct"
+    mint:
+      params:
+        mint_denom: "sct"
+client:
+  vuex:
+    path: "vue/src/store"
+  openapi:
+    path: "docs/static/openapi.yml"
+faucet:
+  name: bob
+  coins: ["5ctok", "100000sct"]

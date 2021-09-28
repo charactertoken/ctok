@@ -1,0 +1,36 @@
+syntax = "proto3";
+package charactertoken.ctok.offerservice;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/charactertoken/ctok/x/offerservice/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc AcceptOffer(MsgAcceptOffer) returns (MsgAcceptOfferResponse);
+  rpc CreateOffer(MsgCreateOffer) returns (MsgCreateOfferResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgAcceptOffer {
+  string creator = 1;
+  string offerId = 2;
+}
+
+message MsgAcceptOfferResponse {
+  string offerId = 1;
+  string charId = 2;
+  string salePrice = 3;
+}
+
+message MsgCreateOffer {
+  int64 expireInMinutes = 1;
+  string creator = 2;
+  string bid = 3;
+  string charId = 4;
+}
+
+message MsgCreateOfferResponse {
+  string index = 1;
+}

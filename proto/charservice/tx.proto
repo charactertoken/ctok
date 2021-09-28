@@ -1,0 +1,52 @@
+syntax = "proto3";
+package charactertoken.ctok.charservice;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/charactertoken/ctok/x/charservice/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // this line is used by starport scaffolding # proto/tx/rpc
+  rpc UnlistSale(MsgUnlistSale) returns (MsgUnlistSaleResponse);
+  rpc SetSale(MsgSetSale) returns (MsgSetSaleResponse);
+  rpc BuyChar(MsgBuyChar) returns (MsgBuyCharResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgUnlistSale {
+  string creator = 1;
+  string index = 2;
+}
+
+message MsgUnlistSaleResponse {
+  string index = 1;
+}
+
+message MsgSetSale {
+  string creator = 1;
+  string index = 2;
+  string cost = 3;
+  int64 saleTimeMinutes = 4;
+}
+
+message MsgSetSaleResponse {
+  string index = 1;
+  string saleEndTime = 2;
+}
+
+message MsgBuyChar {
+  bool tradeRestricted = 1;
+  int64 saleTimeMinutes = 2;
+  string creator = 3;
+  string name = 4;
+  string charType = 5;
+  string cost = 6;
+  string index = 7;
+  string license = 8;
+  bytes value = 9;
+}
+
+message MsgBuyCharResponse {
+  string index = 1;
+}

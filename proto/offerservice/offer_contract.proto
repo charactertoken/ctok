@@ -1,0 +1,14 @@
+syntax = "proto3";
+package charactertoken.ctok.offerservice;
+
+option go_package = "github.com/charactertoken/ctok/x/offerservice/types";
+
+import "gogoproto/gogo.proto";
+
+message OfferContract {
+  int64 expiresAt = 1;
+  string creator = 2;
+  string index = 3;
+  string charId = 4;
+  string value = 5;
+}

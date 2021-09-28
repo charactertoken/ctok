@@ -1,0 +1,26 @@
+syntax = "proto3";
+package charactertoken.ctok.typeservice;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/charactertoken/ctok/x/typeservice/types";
+
+// Msg defines the Msg service.
+service Msg {
+    // this line is used by starport scaffolding # proto/tx/rpc
+  rpc BuyType(MsgBuyType) returns (MsgBuyTypeResponse);
+}
+
+// this line is used by starport scaffolding # proto/tx/message
+message MsgBuyType {
+  string creator = 1;
+  string name = 2;
+  string language = 3;
+  bytes schemaFile = 4;
+  string messageName = 5;
+  string group = 6;
+}
+
+message MsgBuyTypeResponse {
+  string index = 1;
+}
