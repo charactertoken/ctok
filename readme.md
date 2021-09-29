@@ -1,4 +1,6 @@
-# ctok
+![Red Logo Less Border Smaller](https://user-images.githubusercontent.com/3296518/135195502-0aeba42a-15bc-42f1-8229-91c1ddabb332.png)
+
+# Character Token (ctok)
 
 As NFT projects continue to evolve, the space is hindered by the need to host digital assets apart from the smart contracts that govern their transfer. 
 
