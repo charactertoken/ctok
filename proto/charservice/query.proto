@@ -66,11 +66,13 @@ message QueryGetAllCharsByCreatorResponse {
 }
 
 message QueryGetCharByNameRequest {
-  string name = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+  string name = 2;
 }
 
 message QueryGetCharByNameResponse {
-  Character Character = 1;
+  repeated Character Character = 1;
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryGetAllCharsForSaleRequest {

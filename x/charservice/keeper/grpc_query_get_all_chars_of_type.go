@@ -36,6 +36,7 @@ func (k Keeper) GetAllCharsOfType(goCtx context.Context, req *types.QueryGetAllC
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
+	pageRes.Total = uint64(len(characters))
 
 	return &types.QueryGetAllCharsOfTypeResponse{
 		Character:  characters,

@@ -7,6 +7,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -15,30 +16,29 @@ func (k Keeper) GetCharByName(goCtx context.Context, req *types.QueryGetCharByNa
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-
+	
+	var characters []*types.Character
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
+	
 	store := ctx.KVStore(k.storeKey)
 	characterStore := prefix.NewStore(store, types.KeyPrefix(types.CharacterKey))
-
-	charIterator := characterStore.Iterator(nil, nil)
-	defer charIterator.Close()
-
-	var character types.Character
-	for ; charIterator.Valid(); charIterator.Next() {
-		var tempChar types.Character
-		err := k.cdc.Unmarshal(charIterator.Value(), &tempChar)
-		if err != nil {
-			return nil, sdkerrors.Wrapf(err, "search disrupted when looking for '%s'", req.Name)
+	
+	pageRes, err := query.Paginate(characterStore, req.Pagination, func(key []byte, value []byte) error {
+		var character types.Character
+		if err := k.cdc.Unmarshal(value, &character); err != nil {
+			return err
 		}
-		if tempChar.GetName() == req.GetName() {
-			character = tempChar
-			break
+		
+		if req.GetName() == character.GetName() {
+			characters = append(characters, &character)
 		}
-	}
+		return nil
+	})
 
-	if character.GetName() != req.GetName() {
-		return nil, sdkerrors.ErrKeyNotFound
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
 	}
-	return &types.QueryGetCharByNameResponse{Character: &character}, nil
+	pageRes.Total = uint64(len(characters))
+	
+	return &types.QueryGetCharByNameResponse{Pagination: pageRes, Character: characters}, nil
 }

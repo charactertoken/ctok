@@ -88,7 +88,17 @@ export interface CharserviceQueryGetAllCharsOfTypeResponse {
     pagination?: V1Beta1PageResponse;
 }
 export interface CharserviceQueryGetCharByNameResponse {
-    Character?: CharserviceCharacter;
+    Character?: CharserviceCharacter[];
+    /**
+     * PageResponse is to be embedded in gRPC response messages where the
+     * corresponding request message has used PageRequest.
+     *
+     *  message SomeResponse {
+     *          repeated Bar results = 1;
+     *          PageResponse page = 2;
+     *  }
+     */
+    pagination?: V1Beta1PageResponse;
 }
 export interface CharserviceQueryGetCharacterResponse {
     Character?: CharserviceCharacter;
@@ -308,6 +318,11 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/charactertoken/ctok/charservice/getCharByName
      */
     queryGetCharByName: (query?: {
+        "pagination.key"?: string;
+        "pagination.offset"?: string;
+        "pagination.limit"?: string;
+        "pagination.countTotal"?: boolean;
+        "pagination.reverse"?: boolean;
         name?: string;
     }, params?: RequestParams) => Promise<HttpResponse<CharserviceQueryGetCharByNameResponse, RpcStatus>>;
 }

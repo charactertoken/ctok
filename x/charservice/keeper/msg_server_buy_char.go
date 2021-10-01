@@ -2,7 +2,7 @@ package keeper
 
 import (
 	"context"
-
+	
 	"github.com/charactertoken/ctok/x"
 	"github.com/charactertoken/ctok/x/charservice/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -22,12 +22,11 @@ func (k msgServer) BuyChar(goCtx context.Context, msg *types.MsgBuyChar) (*types
 	if ok && HasOwner(char) && !AdvancedCheckIsForSale(char.GetSaleTime()) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrLogic, "owned but not for sale")
 	}
-
+	if char.TradeRestricted {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrNotSupported, "trading is restricted on this char")
+	}
 	// check if a character by that name has an owner
 	if ok && HasOwner(char) {
-		if char.TradeRestricted {
-			return nil, sdkerrors.Wrap(sdkerrors.ErrNotSupported, "trading is restricted on this char")
-		}
 		// get the cost of the character set by the owner
 		cost, err := GetCoins(char.GetCost())
 		if err != nil {
@@ -78,6 +77,7 @@ func (k msgServer) BuyChar(goCtx context.Context, msg *types.MsgBuyChar) (*types
 		char.Index = preparedNewIndex
 	}
 	// update the character
+	char.TradeRestricted = msg.GetTradeRestricted()
 	char.Owner = msg.GetCreator()
 	char.Name = msg.GetName()
 	char.SaleTime = 0

@@ -12,10 +12,12 @@ export interface QueryGetAllCharsByCreatorResponse {
     pagination: PageResponse | undefined;
 }
 export interface QueryGetCharByNameRequest {
+    pagination: PageRequest | undefined;
     name: string;
 }
 export interface QueryGetCharByNameResponse {
-    Character: Character | undefined;
+    Character: Character[];
+    pagination: PageResponse | undefined;
 }
 export interface QueryGetAllCharsForSaleRequest {
     pagination: PageRequest | undefined;

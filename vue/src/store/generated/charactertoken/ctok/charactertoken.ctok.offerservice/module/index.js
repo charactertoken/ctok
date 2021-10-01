@@ -2,11 +2,11 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgAcceptOffer } from "./types/offerservice/tx";
 import { MsgCreateOffer } from "./types/offerservice/tx";
+import { MsgAcceptOffer } from "./types/offerservice/tx";
 const types = [
-    ["/charactertoken.ctok.offerservice.MsgAcceptOffer", MsgAcceptOffer],
     ["/charactertoken.ctok.offerservice.MsgCreateOffer", MsgCreateOffer],
+    ["/charactertoken.ctok.offerservice.MsgAcceptOffer", MsgAcceptOffer],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -21,8 +21,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
-        msgAcceptOffer: (data) => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgAcceptOffer", value: data }),
         msgCreateOffer: (data) => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgCreateOffer", value: data }),
+        msgAcceptOffer: (data) => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgAcceptOffer", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

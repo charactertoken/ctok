@@ -37,6 +37,7 @@ func (k Keeper) GetAllCharsOfOwner(goCtx context.Context, req *types.QueryGetAll
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
+	pageRes.Total = uint64(len(characters))
 
 	return &types.QueryGetAllCharsOfOwnerResponse{
 		Character:  characters,
