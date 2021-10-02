@@ -4,15 +4,15 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgSetSale } from "./types/charservice/tx";
 import { MsgBuyChar } from "./types/charservice/tx";
 import { MsgUnlistSale } from "./types/charservice/tx";
+import { MsgSetSale } from "./types/charservice/tx";
 
 
 const types = [
-  ["/charactertoken.ctok.charservice.MsgSetSale", MsgSetSale],
   ["/charactertoken.ctok.charservice.MsgBuyChar", MsgBuyChar],
   ["/charactertoken.ctok.charservice.MsgUnlistSale", MsgUnlistSale],
+  ["/charactertoken.ctok.charservice.MsgSetSale", MsgSetSale],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -41,9 +41,9 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgSetSale: (data: MsgSetSale): EncodeObject => ({ typeUrl: "/charactertoken.ctok.charservice.MsgSetSale", value: data }),
     msgBuyChar: (data: MsgBuyChar): EncodeObject => ({ typeUrl: "/charactertoken.ctok.charservice.MsgBuyChar", value: data }),
     msgUnlistSale: (data: MsgUnlistSale): EncodeObject => ({ typeUrl: "/charactertoken.ctok.charservice.MsgUnlistSale", value: data }),
+    msgSetSale: (data: MsgSetSale): EncodeObject => ({ typeUrl: "/charactertoken.ctok.charservice.MsgSetSale", value: data }),
     
   };
 };
