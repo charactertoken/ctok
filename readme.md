@@ -8,6 +8,10 @@ Character Token (CTOK) is the first sovereign, layer 1 blockchain that supports 
 
 Any digital asset that can be represented as binary data may be stored or transferred. The movement and purchase of assets may be protected from sale or transfer on the platform, adding a layer of protection from bad actors in addition to providing [Byzantine Fault Tolerance](https://blog.cosmos.network/tendermint-explained-bringing-bft-based-pos-to-the-public-blockchain-domain-f22e274a0fdb) to chain transactions.
 
+## Testnet
+
+Testnet is up, node id: 3335a2e067732d983b6499a3ded8d54c644692ce
+
 Please check out the [Wiki](https://github.com/charactertoken/ctok/wiki) for the initial documentation.
 
 **ctok** is a blockchain built using Cosmos SDK and Tendermint and created with [Starport](https://github.com/tendermint/starport).
