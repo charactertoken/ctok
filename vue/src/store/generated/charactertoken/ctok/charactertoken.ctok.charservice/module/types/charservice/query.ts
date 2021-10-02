@@ -17,8 +17,8 @@ export interface QueryGetAllCharsByCreatorResponse {
 }
 
 export interface QueryGetCharByNameRequest {
-  pagination: PageRequest | undefined
   name: string
+  pagination: PageRequest | undefined
 }
 
 export interface QueryGetCharByNameResponse {
@@ -227,11 +227,11 @@ const baseQueryGetCharByNameRequest: object = { name: '' }
 
 export const QueryGetCharByNameRequest = {
   encode(message: QueryGetCharByNameRequest, writer: Writer = Writer.create()): Writer {
-    if (message.pagination !== undefined) {
-      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
-    }
     if (message.name !== '') {
-      writer.uint32(18).string(message.name)
+      writer.uint32(10).string(message.name)
+    }
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim()
     }
     return writer
   },
@@ -244,10 +244,10 @@ export const QueryGetCharByNameRequest = {
       const tag = reader.uint32()
       switch (tag >>> 3) {
         case 1:
-          message.pagination = PageRequest.decode(reader, reader.uint32())
+          message.name = reader.string()
           break
         case 2:
-          message.name = reader.string()
+          message.pagination = PageRequest.decode(reader, reader.uint32())
           break
         default:
           reader.skipType(tag & 7)
@@ -259,37 +259,37 @@ export const QueryGetCharByNameRequest = {
 
   fromJSON(object: any): QueryGetCharByNameRequest {
     const message = { ...baseQueryGetCharByNameRequest } as QueryGetCharByNameRequest
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromJSON(object.pagination)
-    } else {
-      message.pagination = undefined
-    }
     if (object.name !== undefined && object.name !== null) {
       message.name = String(object.name)
     } else {
       message.name = ''
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination)
+    } else {
+      message.pagination = undefined
     }
     return message
   },
 
   toJSON(message: QueryGetCharByNameRequest): unknown {
     const obj: any = {}
-    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
     message.name !== undefined && (obj.name = message.name)
+    message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined)
     return obj
   },
 
   fromPartial(object: DeepPartial<QueryGetCharByNameRequest>): QueryGetCharByNameRequest {
     const message = { ...baseQueryGetCharByNameRequest } as QueryGetCharByNameRequest
-    if (object.pagination !== undefined && object.pagination !== null) {
-      message.pagination = PageRequest.fromPartial(object.pagination)
-    } else {
-      message.pagination = undefined
-    }
     if (object.name !== undefined && object.name !== null) {
       message.name = object.name
     } else {
       message.name = ''
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination)
+    } else {
+      message.pagination = undefined
     }
     return message
   }

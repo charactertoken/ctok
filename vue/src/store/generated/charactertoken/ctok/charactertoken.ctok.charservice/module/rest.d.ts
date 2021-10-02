@@ -318,12 +318,12 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
      * @request GET:/charactertoken/ctok/charservice/getCharByName
      */
     queryGetCharByName: (query?: {
+        name?: string;
         "pagination.key"?: string;
         "pagination.offset"?: string;
         "pagination.limit"?: string;
         "pagination.countTotal"?: boolean;
         "pagination.reverse"?: boolean;
-        name?: string;
     }, params?: RequestParams) => Promise<HttpResponse<CharserviceQueryGetCharByNameResponse, RpcStatus>>;
 }
 export {};

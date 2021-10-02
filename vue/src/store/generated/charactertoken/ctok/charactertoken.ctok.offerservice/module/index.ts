@@ -4,13 +4,13 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgAcceptOffer } from "./types/offerservice/tx";
 import { MsgCreateOffer } from "./types/offerservice/tx";
+import { MsgAcceptOffer } from "./types/offerservice/tx";
 
 
 const types = [
-  ["/charactertoken.ctok.offerservice.MsgAcceptOffer", MsgAcceptOffer],
   ["/charactertoken.ctok.offerservice.MsgCreateOffer", MsgCreateOffer],
+  ["/charactertoken.ctok.offerservice.MsgAcceptOffer", MsgAcceptOffer],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -39,8 +39,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgAcceptOffer: (data: MsgAcceptOffer): EncodeObject => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgAcceptOffer", value: data }),
     msgCreateOffer: (data: MsgCreateOffer): EncodeObject => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgCreateOffer", value: data }),
+    msgAcceptOffer: (data: MsgAcceptOffer): EncodeObject => ({ typeUrl: "/charactertoken.ctok.offerservice.MsgAcceptOffer", value: data }),
     
   };
 };

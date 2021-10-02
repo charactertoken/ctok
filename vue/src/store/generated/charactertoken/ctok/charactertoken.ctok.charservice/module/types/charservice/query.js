@@ -152,11 +152,11 @@ export const QueryGetAllCharsByCreatorResponse = {
 const baseQueryGetCharByNameRequest = { name: '' };
 export const QueryGetCharByNameRequest = {
     encode(message, writer = Writer.create()) {
-        if (message.pagination !== undefined) {
-            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
-        }
         if (message.name !== '') {
-            writer.uint32(18).string(message.name);
+            writer.uint32(10).string(message.name);
+        }
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -168,10 +168,10 @@ export const QueryGetCharByNameRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    message.name = reader.string();
                     break;
                 case 2:
-                    message.name = reader.string();
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -182,39 +182,39 @@ export const QueryGetCharByNameRequest = {
     },
     fromJSON(object) {
         const message = { ...baseQueryGetCharByNameRequest };
-        if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromJSON(object.pagination);
-        }
-        else {
-            message.pagination = undefined;
-        }
         if (object.name !== undefined && object.name !== null) {
             message.name = String(object.name);
         }
         else {
             message.name = '';
         }
-        return message;
-    },
-    toJSON(message) {
-        const obj = {};
-        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
-        message.name !== undefined && (obj.name = message.name);
-        return obj;
-    },
-    fromPartial(object) {
-        const message = { ...baseQueryGetCharByNameRequest };
         if (object.pagination !== undefined && object.pagination !== null) {
-            message.pagination = PageRequest.fromPartial(object.pagination);
+            message.pagination = PageRequest.fromJSON(object.pagination);
         }
         else {
             message.pagination = undefined;
         }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.name !== undefined && (obj.name = message.name);
+        message.pagination !== undefined && (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = { ...baseQueryGetCharByNameRequest };
         if (object.name !== undefined && object.name !== null) {
             message.name = object.name;
         }
         else {
             message.name = '';
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
         }
         return message;
     }

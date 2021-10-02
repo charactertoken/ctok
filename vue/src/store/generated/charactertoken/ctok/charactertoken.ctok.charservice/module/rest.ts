@@ -558,12 +558,12 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    */
   queryGetCharByName = (
     query?: {
+      name?: string;
       "pagination.key"?: string;
       "pagination.offset"?: string;
       "pagination.limit"?: string;
       "pagination.countTotal"?: boolean;
       "pagination.reverse"?: boolean;
-      name?: string;
     },
     params: RequestParams = {},
   ) =>

@@ -849,6 +849,10 @@ paths:
                       type: string
                   additionalProperties: {}
       parameters:
+        - name: name
+          in: query
+          required: false
+          type: string
         - name: pagination.key
           description: |-
             key is a value returned in PageResponse.next_key to begin
@@ -902,10 +906,6 @@ paths:
           in: query
           required: false
           type: boolean
-        - name: name
-          in: query
-          required: false
-          type: string
       tags:
         - Query
   /charactertoken/ctok/offerservice/getAllCharOffers:

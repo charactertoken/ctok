@@ -1,9 +1,10 @@
 package cli
 
 import (
-	"github.com/spf13/cobra"
 	"strconv"
-
+	
+	"github.com/spf13/cobra"
+	
 	"github.com/charactertoken/ctok/x/charservice/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -30,7 +31,12 @@ func CmdGetCharByName() *cobra.Command {
 
 				Name: string(reqName),
 			}
-
+			pageReq, err := client.ReadPageRequest(cmd.Flags())
+			if err != nil {
+				return err
+			}
+			params.Pagination = pageReq
+			
 			res, err := queryClient.GetCharByName(cmd.Context(), params)
 			if err != nil {
 				return err

@@ -31,6 +31,7 @@ func (k msgServer) AcceptOffer(goCtx context.Context, msg *types.MsgAcceptOffer)
 			// transfer control
 			char.Owner = offer.GetCreator()
 			char.SaleTime = 0
+			char.Cost = coins.String()
 			k.charserviceKeeper.SetCharacter(ctx, char)
 			// clear out all not-accepted offers, no refunds
 			store := ctx.KVStore(k.storeKey)
@@ -47,5 +48,4 @@ func (k msgServer) AcceptOffer(goCtx context.Context, msg *types.MsgAcceptOffer)
 		}
 	}
 	return nil, sdkerrors.Wrap(sdkerrors.ErrLogic, "no offer accepted")
-	
 }

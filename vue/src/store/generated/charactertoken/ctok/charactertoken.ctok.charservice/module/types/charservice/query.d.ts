@@ -12,8 +12,8 @@ export interface QueryGetAllCharsByCreatorResponse {
     pagination: PageResponse | undefined;
 }
 export interface QueryGetCharByNameRequest {
-    pagination: PageRequest | undefined;
     name: string;
+    pagination: PageRequest | undefined;
 }
 export interface QueryGetCharByNameResponse {
     Character: Character[];

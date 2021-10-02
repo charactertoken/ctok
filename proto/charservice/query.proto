@@ -66,8 +66,9 @@ message QueryGetAllCharsByCreatorResponse {
 }
 
 message QueryGetCharByNameRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
-  string name = 2;
+  string name = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;
+
 }
 
 message QueryGetCharByNameResponse {

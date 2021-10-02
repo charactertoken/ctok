@@ -18,15 +18,24 @@ func (k msgServer) BuyChar(goCtx context.Context, msg *types.MsgBuyChar) (*types
 
 	// get the character
 	char, ok = k.GetCharacter(ctx, msg.GetIndex())
+	
+	// --- Pre-Validations ---
+	// check if the character is trade restricted
+	if char.TradeRestricted {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrNotSupported, "trading is restricted on this char")
+	}
 	// check if the owner set it for sale
 	if ok && HasOwner(char) && !AdvancedCheckIsForSale(char.GetSaleTime()) {
 		return nil, sdkerrors.Wrap(sdkerrors.ErrLogic, "owned but not for sale")
 	}
-	if char.TradeRestricted {
-		return nil, sdkerrors.Wrap(sdkerrors.ErrNotSupported, "trading is restricted on this char")
+	if ok && HasOwner(char) && GetAccount(msg.GetCreator()).Equals(GetOwner(char)) {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrLogic, "cannot buy your own character")
 	}
+	// --- End Pre-Validations ---
+	
 	// check if a character by that name has an owner
-	if ok && HasOwner(char) {
+	// if it is owned, buy it
+	if ok && !GetOwner(char).Equals(GetAccount(msg.GetCreator()))  {
 		// get the cost of the character set by the owner
 		cost, err := GetCoins(char.GetCost())
 		if err != nil {
