@@ -23,15 +23,7 @@ Please check out the [Wiki](https://github.com/charactertoken/ctok/wiki) for the
 
 Visit http://tutorials.cosmos.network/publish-app-do/#connect-your-local-running-chain-to-the-published-chain to learn how to connect to the testnet.
 
-### Configure
-
-Your blockchain in development can be configured with `config.yml`. To learn more, see the [Starport docs](https://docs.starport.network).
-
-### Launch
-
-To launch your blockchain live on multiple nodes, use `starport network` commands. Learn more about [Starport Network](https://github.com/tendermint/spn).
-
-### Web Frontend
+### Web Frontend (needs updating)
 
 Starport has scaffolded a Vue.js-based web app in the `vue` directory. Run the following commands to install dependencies and start the app:
 
