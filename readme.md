@@ -13,7 +13,7 @@ Any digital asset that can be represented as binary data may be stored or transf
 
 Testnet is up, node id: 3335a2e067732d983b6499a3ded8d54c644692ce
 
-Genesis files are available at [ctok-testnet](https://github.com/charactertoken/ctok-genesis)
+Genesis files are available at [ctok-testnet](https://github.com/charactertoken/ctok-testnet)
 
 Please check out the [Wiki](https://github.com/charactertoken/ctok/wiki) for the initial documentation.
 
