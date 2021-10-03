@@ -2,6 +2,7 @@
 
 # Character Token (ctok)
 
+## Details
 As NFT projects continue to evolve, the space is hindered by the need to host digital assets apart from the smart contracts that govern their transfer. 
 
 Character Token (CTOK) is the first sovereign, layer 1 blockchain that supports NFTs that are represented as protocol buffers, which can be imported into any programming language or digital platform.
@@ -11,6 +12,7 @@ Any digital asset that can be represented as binary data may be stored or transf
 ## Testnet
 
 Testnet is up, node id: 3335a2e067732d983b6499a3ded8d54c644692ce
+Genesis files are available at [ctok-testnet](https://github.com/charactertoken/ctok-genesis)
 
 Please check out the [Wiki](https://github.com/charactertoken/ctok/wiki) for the initial documentation.
 
