@@ -21,11 +21,7 @@ Please check out the [Wiki](https://github.com/charactertoken/ctok/wiki) for the
 
 ## Get started
 
-```
-starport chain serve
-```
-
-`serve` command installs dependencies, builds, initializes, and starts your blockchain in development.
+Visit http://tutorials.cosmos.network/publish-app-do/#connect-your-local-running-chain-to-the-published-chain to learn how to connect to the testnet.
 
 ### Configure
 
