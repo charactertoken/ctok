@@ -68,8 +68,8 @@ import (
 	upgradeclient "github.com/cosmos/cosmos-sdk/x/upgrade/client"
 	upgradekeeper "github.com/cosmos/cosmos-sdk/x/upgrade/keeper"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	"github.com/cosmos/ibc-go/modules/apps/transfer"
-	ibctransferkeeper "github.com/cosmos/ibc-go/modules/apps/transfer/keeper"
+	//"github.com/cosmos/ibc-go/modules/apps/transfer"
+	//ibctransferkeeper "github.com/cosmos/ibc-go/modules/apps/transfer/keeper"
 	ibctransfertypes "github.com/cosmos/ibc-go/modules/apps/transfer/types"
 	ibc "github.com/cosmos/ibc-go/modules/core"
 	ibcclient "github.com/cosmos/ibc-go/modules/core/02-client"
@@ -144,7 +144,7 @@ var (
 		ibc.AppModuleBasic{},
 		upgrade.AppModuleBasic{},
 		evidence.AppModuleBasic{},
-		transfer.AppModuleBasic{},
+		//transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		typeservicemodule.AppModuleBasic{},
 		charservicemodule.AppModuleBasic{},
@@ -160,7 +160,7 @@ var (
 		stakingtypes.BondedPoolName:        {authtypes.Burner, authtypes.Staking},
 		stakingtypes.NotBondedPoolName:     {authtypes.Burner, authtypes.Staking},
 		govtypes.ModuleName:                {authtypes.Burner},
-		ibctransfertypes.ModuleName:        {authtypes.Minter, authtypes.Burner},
+		//ibctransfertypes.ModuleName:        {authtypes.Minter, authtypes.Burner},
 		typeservicemoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		charservicemoduletypes.ModuleName:  {authtypes.Minter, authtypes.Burner, authtypes.Staking},
 		offerservicemoduletypes.ModuleName: {authtypes.Minter, authtypes.Burner, authtypes.Staking},
@@ -213,12 +213,12 @@ type App struct {
 	ParamsKeeper     paramskeeper.Keeper
 	IBCKeeper        *ibckeeper.Keeper // IBC Keeper must be a pointer in the app, so we can SetRouter on it correctly
 	EvidenceKeeper   evidencekeeper.Keeper
-	TransferKeeper   ibctransferkeeper.Keeper
+	//TransferKeeper   ibctransferkeeper.Keeper
 	FeeGrantKeeper   feegrantkeeper.Keeper
 
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
-	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
+	//ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
 	TypeserviceKeeper typeservicemodulekeeper.Keeper
 
@@ -287,7 +287,7 @@ func New(
 
 	// grant capabilities for the ibc and ibc-transfer modules
 	scopedIBCKeeper := app.CapabilityKeeper.ScopeToModule(ibchost.ModuleName)
-	scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
+	//scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/scopedKeeper
 
 	// add keepers
@@ -340,12 +340,12 @@ func New(
 		AddRoute(ibchost.RouterKey, ibcclient.NewClientProposalHandler(app.IBCKeeper.ClientKeeper))
 
 	// Create Transfer Keepers
-	app.TransferKeeper = ibctransferkeeper.NewKeeper(
-		appCodec, keys[ibctransfertypes.StoreKey], app.GetSubspace(ibctransfertypes.ModuleName),
-		app.IBCKeeper.ChannelKeeper, &app.IBCKeeper.PortKeeper,
-		app.AccountKeeper, app.BankKeeper, scopedTransferKeeper,
-	)
-	transferModule := transfer.NewAppModule(app.TransferKeeper)
+	//app.TransferKeeper = ibctransferkeeper.NewKeeper(
+	//	appCodec, keys[ibctransfertypes.StoreKey], app.GetSubspace(ibctransfertypes.ModuleName),
+	//	app.IBCKeeper.ChannelKeeper, &app.IBCKeeper.PortKeeper,
+	//	app.AccountKeeper, app.BankKeeper, scopedTransferKeeper,
+	//)
+	//transferModule := transfer.NewAppModule(app.TransferKeeper)
 
 	// Create evidence Keeper for to register the IBC light client misbehaviour evidence route
 	evidenceKeeper := evidencekeeper.NewKeeper(
@@ -392,7 +392,7 @@ func New(
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
-	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferModule)
+	//ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferModule)
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
 
@@ -425,7 +425,7 @@ func New(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
-		transferModule,
+		//transferModule,
 		typeserviceModule,
 		charserviceModule,
 		offerserviceModule,
@@ -505,7 +505,7 @@ func New(
 	}
 
 	app.ScopedIBCKeeper = scopedIBCKeeper
-	app.ScopedTransferKeeper = scopedTransferKeeper
+	//app.ScopedTransferKeeper = scopedTransferKeeper
 	// this line is used by starport scaffolding # stargate/app/beforeInitReturn
 
 	return app
@@ -651,7 +651,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(slashingtypes.ModuleName)
 	paramsKeeper.Subspace(govtypes.ModuleName).WithKeyTable(govtypes.ParamKeyTable())
 	paramsKeeper.Subspace(crisistypes.ModuleName)
-	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
+	//paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(typeservicemoduletypes.ModuleName)
 	paramsKeeper.Subspace(charservicemoduletypes.ModuleName)
